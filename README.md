@@ -13,11 +13,12 @@
 
 ```
 artefactos-evaluacion-y-anexos/
-├── entrevistas/          # Grabaciones de entrevistas semiestructuradas (Anexo B)
 ├── evaluacion/           # Matrices de evaluación RAG (Anexo G)
 ├── pruebas/              # Casos de prueba y evidencias visuales (Anexo F)
-└── tech-talk/            # Demo del despliegue en producción (Anexo E)
+└── snippets.tex          # Fragmentos LaTeX reutilizables
 ```
+
+> Los videos de entrevistas (Anexo B) y la demo del Tech Day (Anexo E) se encuentran en Google Drive por superar el límite de tamaño de GitHub. Ver enlaces en cada sección.
 
 ---
 
@@ -76,8 +77,6 @@ Artefacto metodológico utilizado durante la fase de análisis de requerimientos
 | 2 | Analista de Datos | [Ver grabación](https://drive.google.com/file/d/1ZtsXypsYchd2J-cXZz39XpRs43n-jG2d/view?usp=drive_link) |
 | 3 | Gerente de Tecnología | [Ver grabación](https://drive.google.com/file/d/1iILfTNhsBRz_-NDCAGN2h-cNaqTZKKbD/view?usp=sharing) |
 
-> Los archivos de video también están disponibles en la carpeta [`entrevistas/`](./entrevistas/).
-
 > *Las grabaciones fueron realizadas con el consentimiento explícito de los participantes y se utilizan exclusivamente con fines académicos.*
 
 ---
@@ -127,8 +126,6 @@ Evidencias del despliegue del sistema en un entorno productivo de AWS, así como
 **Video de demostración:**
 
 [Ver video de demo en entorno de producción](https://drive.google.com/file/d/1-A3BHYOVQwudWkKBxhtXusS3f9Typ5lW/view?usp=drive_link)
-
-> El archivo también está disponible localmente en [`tech-talk/demo-en-entorno-blend.mp4`](./tech-talk/demo-en-entorno-blend%20(1).mp4).
 
 La demostración evidencia:
 - Consultas en lenguaje natural sobre costos de AWS
