@@ -14,8 +14,7 @@
 ```
 artefactos-evaluacion-y-anexos/
 ├── evaluacion/           # Matrices de evaluación RAG (Anexo G)
-├── pruebas/              # Casos de prueba y evidencias visuales (Anexo F)
-└── snippets.tex          # Fragmentos LaTeX reutilizables
+└── pruebas/              # Casos de prueba y evidencias visuales (Anexo F)
 ```
 
 > Los videos de entrevistas (Anexo B) y la demo del Tech Day (Anexo E) se encuentran en Google Drive por superar el límite de tamaño de GitHub. Ver enlaces en cada sección.
