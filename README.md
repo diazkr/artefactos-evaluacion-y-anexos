@@ -1,209 +1,178 @@
-# Artefactos y Evidencias — Trabajo de Fin de Maestría
+# Artefactos de Evaluación - Trabajo Final de Maestría
 
-**Interfaz conversacional con inteligencia artificial generativa para consultar el estado de servicios en Amazon Web Services (AWS)**
+## Interfaz conversacional con inteligencia artificial generativa para consultar el estado de servicios en Amazon Web Services (AWS)
 
-> **Karen Julieth Diaz Cardozo**
-> Universidad Nacional de Colombia — Facultad de Ingeniería
-> Departamento de Ingeniería de Sistemas e Industrial
-> Bogotá, Colombia · 2025
+**Autora:** Karen Julieth Díaz Cardozo
+**Programa:** Maestría en Ingeniería de Sistemas y Computación
+**Universidad Nacional de Colombia**
+**Año:** 2026
 
 ---
 
-## Contenido del repositorio
+## 📋 Descripción
+
+Este repositorio contiene los artefactos digitales de evaluación correspondientes al **Anexo F** y **Anexo G** del Trabajo Final de Maestría. Los materiales aquí presentados documentan la evaluación exhaustiva del sistema mediante 100 pruebas funcionales y la validación de Amazon Q Business como fuente de referencia para consultas de documentación.
+
+---
+
+## 📁 Estructura del Repositorio
 
 ```
 artefactos-evaluacion-y-anexos/
-├── evaluacion/           # Matrices de evaluación RAG (Anexo G)
-└── pruebas/              # Casos de prueba y evidencias visuales (Anexo F)
+│
+├── evaluacion/
+│   ├── rag_evaluation.xlsx          # Anexo G: Evaluación RAG de Amazon Q
+│   ├── matriz_pruebas_tfm_FINAL.xlsx # Anexo F: Matriz completa de 100 pruebas
+│   ├── pruebas/                      # Evidencias visuales de casos de prueba
+│   │   ├── screenshots/              # Capturas de pantalla de ejecución
+│   │   └── ...
+│   └── documentation_all...          # Respuestas de Amazon Q para validación
+│
+└── README.md                         # Este archivo
 ```
 
-> Los videos de entrevistas (Anexo B) y la demo del Tech Day (Anexo E) se encuentran en Google Drive por superar el límite de tamaño de GitHub. Ver enlaces en cada sección.
+---
+
+## 📊 Contenido de los Archivos
+
+### 1. **rag_evaluation.xlsx** (Anexo G)
+
+Evaluación de **Amazon Q Business** como referencia operativa para consultas de documentación técnica de AWS.
+
+**Contenido:**
+- **Metodología RAG Evaluation:** Basada en Evidently AI
+- **Métricas obtenidas:**
+  - **Precision@k:** 88% (calidad de recuperación)
+  - **Groundedness:** 90% (sustentación de afirmaciones)
+- **Consultas evaluadas:** 5 consultas de tipo Documentation
+- **Criterio de aceptación:** ≥ 80% (✅ Cumplido)
+
+**Hojas del archivo:**
+- Matriz de evaluación de fuentes (retrieval quality)
+- Matriz de evaluación de afirmaciones (groundedness/faithfulness)
+- Resumen de resultados
 
 ---
 
-## Anexos
+### 2. **matriz_pruebas_tfm_FINAL.xlsx** (Anexo F)
 
-### Anexo A — Guía de replicación del entorno (ejecución local)
+Matriz completa de las **100 pruebas funcionales** ejecutadas para evaluar el sistema.
 
-Documentación técnica completa para reproducir el sistema localmente. Cubre prerequisitos, estructura de repositorios, instalación, variables de entorno, integración de MCPs, autenticación con Keycloak y verificación del sistema.
+**Contenido:**
+- **100 casos de prueba** (T001-T100)
+- **Campos por cada caso:**
+  - `id`: Identificador único (T001-T100)
+  - `query_type`: Tipo de consulta (Costs, Budgets, Pricing, Documentation)
+  - `complexity`: Nivel de dificultad (Básica, Intermedia, Avanzada)
+  - `is_robustness`: Indica si es caso de robustez (consulta incompleta/ambigua)
+  - `query_natural_language`: Consulta en lenguaje natural enviada al sistema
+  - `period`: Período temporal evaluado
+  - `filters_applied`: Filtros aplicados (servicio, cuenta, región)
+  - `system_response`: Respuesta textual del sistema
+  - `aws_reference_value`: Valor de referencia obtenido mediante APIs de AWS
+  - `c2_accuracy`: Indicador binario de exactitud (0/1, N/A cuando aplica)
+  - `c3_robustness`: Indicador binario de robustez (0/1, N/A cuando aplica)
+  - `c4_clarity`: Indicador binario de claridad (0/1, N/A cuando aplica)
+  - `observations`: Observaciones adicionales
 
-**Repositorios del sistema:**
+**Distribución de pruebas:**
+- **Costos:** 50 pruebas (50%)
+- **Presupuestos:** 30 pruebas (30%)
+- **Precios:** 15 pruebas (15%)
+- **Documentación:** 5 pruebas (5%)
 
-| Componente | Repositorio |
-|---|---|
-| Backend (FastAPI + LangGraph) | [github.com/diazkr/aws_agent](https://github.com/diazkr/aws_agent) |
-| Frontend (Next.js + React) | [github.com/diazkr/aws-agent-front](https://github.com/diazkr/aws-agent-front) |
+**Niveles de complejidad:**
+- **Básicas:** 30 pruebas
+- **Intermedias:** 45 pruebas
+- **Avanzadas:** 25 pruebas
 
-**Stack tecnológico:**
-
-- **Backend:** Python 3.12+, FastAPI, LangGraph, `langchain-mcp-adapters`, Gemini 2.5 Pro
-- **Frontend:** Next.js 15, React 19, TypeScript, Tailwind CSS 4, Keycloak.js
-- **Infraestructura:** MongoDB Atlas, Keycloak (IdP), AWS (Cost Explorer, Pricing, Billing, Documentation)
-- **MCPs integrados:** `awslabs.aws-documentation-mcp-server`, `awslabs.cost-explorer-mcp-server`, `awslabs.aws-pricing-mcp-server`, `awslabs.billing-cost-management-mcp-server`
-
-**Ejecución rápida:**
-
-```bash
-# Backend
-cd aws_agent/
-uv venv && uv pip install -e .
-cp .env.example .env  # completar variables
-uv run uvicorn main:app --reload --port 8000
-
-# Frontend
-cd aws-agent-front/
-npm install
-cp .env.example .env  # completar variables
-npm run dev
-```
-
-Acceder a:
-- Frontend: `http://localhost:3000`
-- API docs: `http://localhost:8000/docs`
-- Keycloak admin: `http://localhost:8080` (requiere Docker)
+**Casos de robustez:** 12 pruebas (consultas incompletas o ambiguas)
 
 ---
 
-### Anexo B — Guion de entrevista semiestructurada
+### 3. **pruebas/** (Carpeta)
 
-Artefacto metodológico utilizado durante la fase de análisis de requerimientos. Las entrevistas fueron realizadas a profesionales del sector para comprender necesidades reales y validar la relevancia de la solución propuesta.
+Contiene evidencias visuales (capturas de pantalla) de la ejecución de casos de prueba representativos.
 
-**Grabaciones de entrevistas:**
+**Ejemplos incluidos:**
+- Consultas de costos en tiempo real
+- Consultas de presupuestos con alertas
+- Consultas de precios con filtros
+- Consultas de documentación técnica
 
-| # | Cargo | Enlace |
-|---|---|---|
-| 1 | Gerente Financiera y de Estrategia | [Ver grabación](https://drive.google.com/file/d/1VoGmp8dIojZX77UCII2zyl7jJ83heuqY/view?usp=sharing) |
-| 2 | Analista de Datos | [Ver grabación](https://drive.google.com/file/d/1ZtsXypsYchd2J-cXZz39XpRs43n-jG2d/view?usp=drive_link) |
-| 3 | Gerente de Tecnología | [Ver grabación](https://drive.google.com/file/d/1iILfTNhsBRz_-NDCAGN2h-cNaqTZKKbD/view?usp=sharing) |
-
-> *Las grabaciones fueron realizadas con el consentimiento explícito de los participantes y se utilizan exclusivamente con fines académicos.*
-
----
-
-### Anexo C — Versiones anteriores de los diagramas de arquitectura
-
-Documenta la evolución arquitectónica del sistema a lo largo del proceso de diseño iterativo (Versiones 1 y 2), hasta alcanzar la arquitectura final descrita en el Capítulo 4 del documento principal.
-
-Incluye por cada versión:
-- Diagrama de descomposición funcional
-- Diagrama de componentes y conectores
-- Diagrama de despliegue
-- Vistas de interfaz de usuario (wireframes / mockups)
+**Formato:** PNG/JPG
+**Nomenclatura:** `T0XX_descripcion.png`
 
 ---
 
-### Anexo D — Repositorio de infraestructura AWS CDK
+### 4. **documentation_all...** (Archivo)
 
-Infraestructura como código (IaC) desarrollada con **AWS CDK en TypeScript** para el despliegue del sistema en AWS. El repositorio es de acceso privado por contener configuraciones específicas de la infraestructura de producción.
+Respuestas generadas por **Amazon Q Business** para las 5 consultas de tipo Documentation, utilizadas como fuente de referencia en la evaluación.
 
-**Stacks definidos:**
-
-| Stack | Descripción |
-|---|---|
-| `controlCostosStack` | Backend: ECS Fargate, ECR, ALB, CodePipeline |
-| `controlCostosStackFront` | Frontend: ECS Fargate, ECR, CodePipeline |
-
-**Estrategia de capacidad (Fargate Spot):**
-```typescript
-capacityProviderStrategies: [
-  { capacityProvider: "FARGATE_SPOT", weight: 4, base: 0 },
-  { capacityProvider: "FARGATE",      weight: 1, base: 1 }
-]
-```
-Esta configuración garantiza alta disponibilidad con reducción de costos de hasta 70% mediante instancias Spot.
-
-**Auto-escalado:** 1–5 tareas, 0% downtime durante despliegues.
-
-**CI/CD:** CodePipeline con trigger automático en push a `main` → Build Docker → Push ECR → Deploy CDK.
+**Propósito:**
+Dado que las consultas de documentación no se contrastan contra un valor numérico único (como en Costs o Budgets), se utilizó Amazon Q Business como asistente de IA especializado en servicios AWS para generar respuestas de referencia. Estas respuestas fueron evaluadas mediante RAG evaluation.
 
 ---
 
-### Anexo E — Evidencias del Tech Day y despliegue en producción
+## 🎯 Resultados de la Evaluación
 
-Evidencias del despliegue del sistema en un entorno productivo de AWS, así como la demostración realizada durante un evento técnico interno el **14 de noviembre de 2025**.
+### Criterios evaluados:
 
-**Video de demostración:**
+| Criterio | Umbral | Resultado | Estado |
+|----------|--------|-----------|--------|
+| **C2: Exactitud vs AWS API** | ≥ 85% | **90.91%** (80/88) | ✅ Cumple |
+| **C3: Robustez ante consultas incompletas** | ≥ 85% | **100%** (12/12) | ✅ Cumple |
+| **C4: Claridad mínima de respuesta** | ≥ 85% | **100%** (100/100) | ✅ Cumple |
 
-[Ver video de demo en entorno de producción](https://drive.google.com/file/d/1-A3BHYOVQwudWkKBxhtXusS3f9Typ5lW/view?usp=drive_link)
+### Detalles de exactitud (C2):
 
-La demostración evidencia:
-- Consultas en lenguaje natural sobre costos de AWS
-- Generación de visualizaciones de datos en tiempo real
-- Mantenimiento del contexto conversacional entre interacciones
+- **Pruebas validables con APIs:** 88 (las 12 de robustez no aplican para C2)
+- **Pruebas correctas:** 80
+- **Casos fallidos:** 8 (T014, T020, T024, T036, T043, T064, T078, T098)
+- **Exactitud:** 90.91%
 
----
-
-### Anexo F — Matriz de pruebas y evidencias de evaluación
-
-Evaluación funcional del sistema mediante **100 casos de prueba** distribuidos en cuatro categorías, con criterios de exactitud (C2), robustez (C3) y claridad (C4).
-
-**Distribución de casos de prueba:**
-
-| Categoría | Descripción | Valor de referencia |
-|---|---|---|
-| Costs | Consultas de costos y uso por período, cuenta, servicio | Consola AWS (Cost Explorer) |
-| Budgets | Estado de presupuestos y alertas de desviación | Consola AWS (AWS Budgets) |
-| Pricing | Precios bajo demanda y estimaciones | Consola AWS (Pricing) |
-| Documentation | Consultas conceptuales sobre servicios AWS | Amazon Q (referencia IA) |
-
-**Resultados destacados:**
-
-- **T017** (Costs / Intermediate): gasto total por cuenta a 6 meses → diferencia de $0.13 (0.00012%) respecto al valor de referencia.
-- **T068** (Budgets / Intermediate): identificación de dos presupuestos diarios excedidos con valores exactos.
-- **T091** (Pricing / Intermediate): estimación EC2 m5.large 24/7 mensual → coincidencia exacta ($70.08).
-- **T054** (Documentation / Advanced): modelo de precios AWS Glue → respuesta alineada con documentación oficial.
-
-**Recursos:**
-
-| Recurso | Enlace |
-|---|---|
-| Matriz de pruebas completa (Google Sheets) | [Ver](https://docs.google.com/spreadsheets/d/1fL0rZxwG2iwlAGg7NJK8Zj9LGJPee8_6e7mWAXHii7U/edit?usp=sharing) |
-| Evidencias visuales (capturas por caso) | [Ver](https://docs.google.com/document/d/1JWGXkX7wnjNzLB1OhMbFYFA168ANqUX5aqjzUS8djiM/edit?usp=sharing) |
-| Archivo local (pruebas) | [`pruebas/matriz_pruebas_tfm.xlsx`](./pruebas/matriz_pruebas_tfm.xlsx) |
-| Evidencias documentación | [`pruebas/documentation_all_test.docx`](./pruebas/documentation_all_test.docx) |
+**Distribución por tipo de consulta:**
+- **Costos:** 39/44 correctas = 88.64%
+- **Presupuestos:** 24/26 correctas = 92.31%
+- **Precios:** 12/13 correctas = 92.31%
+- **Documentación:** 5/5 correctas = 100%
 
 ---
 
-### Anexo G — Evaluación de Amazon Q Business como referencia operativa (RAG Evaluation)
+## 📖 Nota Metodológica
 
-Metodología de evaluación aplicada a **Amazon Q Business** como referencia para las consultas de tipo *Documentation*, basada en el estándar de *RAG evaluation* de Evidently AI.
+### Valores de referencia:
 
-**Dos niveles de evaluación por consulta:**
+**Para consultas de Costs, Budgets y Pricing:**
+- Los valores de referencia se obtuvieron directamente de las **APIs oficiales de AWS**:
+  - Cost Explorer API
+  - Budgets API
+  - Pricing API
+- Se configuraron los mismos períodos temporales y filtros que la consulta en lenguaje natural
+- Se realizó comparación numérica con tolerancia de redondeo
 
-1. **Precision@k (retrieval quality):** relevancia de las fuentes citadas por Amazon Q, escala 0–2 (No relevante / Parcialmente relevante / Completamente relevante).
-2. **Groundedness / Faithfulness:** proporción de afirmaciones de la respuesta sustentadas por las fuentes recuperadas.
-
-**Alcance:** 5 consultas de la categoría *Documentation* evaluadas con matrices tabulares de fuentes y afirmaciones.
-
-**Archivo local:** [`evaluacion/rag_evaluation.xlsx`](./evaluacion/rag_evaluation.xlsx)
-
----
-
-## Descripción del sistema
-
-Este trabajo implementa un agente conversacional que permite consultar en lenguaje natural el estado de costos, presupuestos y servicios de AWS, integrando cuatro servidores MCP oficiales de AWS Labs mediante el protocolo Model Context Protocol (MCP).
-
-**Arquitectura:**
-
-```
-Usuario → Frontend (Next.js) → Backend (FastAPI + LangGraph)
-                                        ↓
-                               Agente ReAct (Gemini 2.5 Pro)
-                                        ↓
-              MCP Cost Explorer · MCP Pricing · MCP Billing · MCP Documentation
-                                        ↓
-                              AWS APIs (datos en tiempo real)
-```
-
-**Persistencia:** MongoDB Atlas
-**Autenticación:** Keycloak (OpenID Connect / JWT)
-**Streaming de respuestas:** Server-Sent Events (SSE)
-**Observabilidad:** LangSmith (opcional)
+**Para consultas de Documentation:**
+- Se utilizó **Amazon Q Business** como fuente de referencia operativa
+- Amazon Q fue evaluado previamente mediante **RAG evaluation** (Anexo G)
+- Obtuvo Precision@k = 88% y Groundedness = 90%, cumpliendo el criterio de ≥ 80%
+- Las respuestas del sistema fueron comparadas contra las respuestas de Amazon Q por un especialista en servicios AWS
 
 ---
 
-## Notas
+### Contacto:
+- **Autora:** Karen Julieth Díaz Cardozo
+- **Email:** [kjdiazc@unal.edu.co](mailto:kjdiazc@unal.edu.co)
+- **Directores:**
+  - Henry Roberto Umaña Acosta
+  - Luis Fernando Ortega Melo
 
-- Las grabaciones de entrevistas se publican con el consentimiento explícito de los participantes, exclusivamente con fines académicos.
-- El repositorio de infraestructura CDK es privado por contener configuraciones de la infraestructura de producción.
-- Los valores de referencia para Costs, Budgets y Pricing provienen directamente de la consola de AWS. Para Documentation, se utilizó Amazon Q como fuente de referencia comparativa.
+---
+
+## 📝 Licencia
+
+Este material es parte de un Trabajo Final de Maestría presentado a la Universidad Nacional de Colombia. El código fuente asociado está disponible en repositorios públicos bajo licencia MIT (donde aplique).
+
+---
+
+
+**Última actualización:** Febrero 2026
